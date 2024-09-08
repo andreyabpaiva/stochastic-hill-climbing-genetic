@@ -3,5 +3,8 @@
 Desenvolvimento do trabalho avaliativo de Inteligência Artificial
 
 **- Tasks**
-- [ ] Implementar o algoritmo Stochastic Hill Climbing para resolver o problema das Sete Rainhas;
+- [ ] Stochastic Hill Climbing;
+  - [x] Implementar o algoritmo 
+  - [ ] Fazer fluxograma do Stochastic Hill
+  - [x] Análise estatística
 - [ ] Implementar o algoritmo genético para resolver o problema das Sete Rainhas.
