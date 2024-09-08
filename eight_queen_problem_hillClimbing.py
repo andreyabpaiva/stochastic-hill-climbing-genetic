@@ -98,9 +98,15 @@ def best_move(state: list) -> tuple:
     return best_state, min_collisions
 
 
-def run_experiments(num_experiments=50):
+def run_experiments(num_experiments: int = 50) -> tuple:
     """
     Executes the algorithm 50 times and computes statistical references
+
+    args: 
+        number of experiments to be executed
+
+    return:
+        (float: mean of the number iterations, float: standart deviation of the number of iterations, float: mean of the time of executions of the function, float: standart deviation of the number of executions of the function)
     """
 
     iterations = []
@@ -132,4 +138,3 @@ mean_iters, std_iters, mean_time, std_time, best_solutions = run_experiments()
 print(f"Average Iterations: {mean_iters}, Standard Deviation: {std_iters:.4f}")
 print(f"Average Execution Time: {mean_time:.4f} seconds, Standard Deviation: {std_time:.4f} seconds")
 print(f"Top Distinct Solutions Found: {best_solutions[:5]}")
-
