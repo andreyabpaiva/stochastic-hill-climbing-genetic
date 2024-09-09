@@ -102,13 +102,13 @@ def run_multiple_executions():
         generations_list.append(generations)
         times.append(time_taken)
         
-        print(f"Tentativa {i+1}:")
-        print(f"Solução: {queens_solution}")
-        if generations < 1000:
-            print(f"Solução ótima encontrada em {generations} gerações.")
-        else:
-            print("Solução ótima não encontrada. Melhor solução após 1000 gerações.")
-        print(f"Tempo de execução: {time_taken:.4f} segundos\n")
+        # print(f"Tentativa {i+1}:")
+        # print(f"Solução: {queens_solution}")
+        # if generations < 1000:
+        #     print(f"Solução ótima encontrada em {generations} gerações.")
+        # else:
+        #     print("Solução ótima não encontrada. Melhor solução após 1000 gerações.")
+        # print(f"Tempo de execução: {time_taken:.4f} segundos\n")
     
     return solutions, generations_list, times
 
