@@ -13,7 +13,11 @@ Desenvolvimento do trabalho avaliativo de Inteligência Artificial
   - [x] Análise estatística
 
 #
-**Fluxograma**
+**Fluxograma 1**
+```mermaid
+```
+
+**Fluxograma 2**
 ```mermaid
 ```
 #
