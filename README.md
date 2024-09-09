@@ -2,7 +2,7 @@
 
 Desenvolvimento do trabalho avaliativo de Inteligência Artificial
 
-**- Tasks**
+**Tasks**
 - [ ] Stochastic Hill Climbing;
   - [x] Implementar o algoritmo 
   - [ ] Fazer fluxograma do Stochastic Hill
@@ -11,3 +11,9 @@ Desenvolvimento do trabalho avaliativo de Inteligência Artificial
   - [x] Implementar o algoritmo 
   - [ ] Fazer fluxograma da implementação genética
   - [x] Análise estatística
+
+#
+Alunos: 
+`Andreya Paiva`
+`Andrey Oliveira`
+`Alexandre Moraes`
