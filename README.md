@@ -4,28 +4,7 @@
 1. Implementação do código em [`eight_queen_problem_hillClimbing.py`](https://github.com/andreyabpaiva/stochastic-hill-climbing-genetic/blob/main/eight_queen_problem_hillClimbing.py)
 2. Fluxograma
   ```mermaid
-graph LR
-    A[Início] --> B[Inicialize o estado com uma solução aleatória]
-    B --> C[Calcule o número de colisões iniciais]
-    C --> D[Defina 'no_improvement' como 0 - contador de melhorias]
-    D --> E{Enquanto 'no_improvement' < max_no_improve}
-    E -->|Sim| F[Incremente o contador de iterações]
-    F --> G[Escolha uma coluna aleatória para modificar]
-    G --> H[Defina 'best_state' como o estado atual]
-    H --> I[Defina 'min_collisions' como o número de colisões atuais]
-    I --> J{Para cada linha na coluna selecionada}
-    J --> K[Se a rainha já estiver nesta linha, continue para a próxima]
-    K --> L[Crie um 'new_state' movendo a rainha para uma nova linha]
-    L --> M[Calcule 'new_collisions' para o novo estado]
-    M --> N{Se 'new_collisions' < 'min_collisions'}
-    N -->|Sim| O[Atualize 'best_state' e 'min_collisions']
-    O --> P[Atualize 'state' para 'best_state']
-    P --> Q[Atualize 'current_collisions' para 'min_collisions']
-    Q --> R[Redefina 'no_improvement' para 0]
-    N -->|Não| S[Incremente 'no_improvement' em 1]
-    E -->|Não| T[Fim do loop]
-    T --> U[Retorne o estado final, o número de colisões e o número de iterações]
-    U --> V[Fim]
+
   ```
 3. Resultado da execução e cinco melhores resultados 
    
@@ -69,6 +48,17 @@ graph LR
 1. Implementação do código em [`eight_queen_problem_genetic.py`](https://github.com/andreyabpaiva/stochastic-hill-climbing-genetic/blob/main/eight_queen_problem_genetic.py)
 2. Fluxograma
   ```mermaid
+  flowchart LR
+      A[INÍCIO] -->B[INICIAR POPULAÇÃO]
+      B --> C[CALCULA FITNESS DA POPULAÇÃO]
+  
+      D[MUTAÇÃO 3% - BIT FLIP] --> E[SELECIONAR SOBREVIVENTES - ELITISMO] 
+      E-->C
+      C--> F{VERIFICAR SE O CRITÉRIO DE PARADA FOI ATINGIDO}
+      F-->|NÃO| G[SELEÇÃO DOS PAIS - ESTRATÉGIA DE ROLETA]
+      G-->H[CRUZAMENTO - PONTO DE CORTE]
+      H-->D
+      F--> |SIM| I[FIM]
   ```
 3. Resultado da execução
    
