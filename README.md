@@ -15,7 +15,7 @@
       G -->|SIM| H[FIM: RETORNA ATUAL SOLUÇÃO]
       G --> |NÃO|B
   ```
-3. Resultado da execução e cinco melhores resultados 
+3. Execução 
    
    ```python
    def run_experiments(num_experiments: int = 50) -> tuple:
@@ -53,6 +53,13 @@
 
     return mean_iterations, std_iterations, mean_time, std_time, best_solutions
    ```
+   ---
+ | resultado das 50 execuções   | melhores resultados |
+| ------------- | ------------- |
+| [`stochastic_hill_climbing_results.csv`](https://github.com/andreyabpaiva/stochastic-hill-climbing-genetic/blob/main/hill_climbing_results/stochastic_hill_climbing_results.csv)  | [`stochastic_hill_climbing_unique_solutions.csv`](https://github.com/andreyabpaiva/stochastic-hill-climbing-genetic/blob/main/hill_climbing_results/stochastic_hill_climbing_unique_solutions.csv)   |
+
+#  
+
 ### Com algoritmo genético
 1. Implementação do código em [`eight_queen_problem_genetic.py`](https://github.com/andreyabpaiva/stochastic-hill-climbing-genetic/blob/main/eight_queen_problem_genetic.py)
 2. Fluxograma
@@ -69,8 +76,7 @@
       H-->D
       F--> |SIM| I[FIM]
   ```
-3. Resultado da execução
-   
+3. Execução
    ```python
    def run_multiple_executions():
     num_executions = 50
@@ -100,7 +106,7 @@
     
     return solutions, generations_list, times
    ```
-4. Média e Desvio Padrão
+   - Média e Desvio Padrão
    ```python
    def calculate_statistics(generations_list, times):
     avg_generations = np.mean(generations_list)
@@ -114,7 +120,7 @@
     print(f"Desvio padrão do tempo de execução: {std_time:.4f} segundos")
    ```
 
-6. Cinco melhores resultados
+    - Melhores resultados
    ```python
    def display_best_solutions(solutions):
     unique_solutions = []
@@ -128,8 +134,9 @@
     for solution in unique_solutions:
         print(solution)
    ```
-
-
+ | resultado das 50 execuções   | melhores resultados |
+| ------------- | ------------- |
+| [`genetic_algorithm_results.csv`](https://github.com/andreyabpaiva/stochastic-hill-climbing-genetic/blob/main/genetic_results/genetic_algorithm_results.csv) | [`genetic_algorithm_unique_solutions.csv`](https://github.com/andreyabpaiva/stochastic-hill-climbing-genetic/blob/main/genetic_results/genetic_algorithm_unique_solutions.csv)  |
 
 #
 Alunos: 
