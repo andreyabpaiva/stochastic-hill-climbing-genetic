@@ -139,6 +139,8 @@
 | [`genetic_algorithm_results.csv`](https://github.com/andreyabpaiva/stochastic-hill-climbing-genetic/blob/main/genetic_results/genetic_algorithm_results.csv) | [`genetic_algorithm_unique_solutions.csv`](https://github.com/andreyabpaiva/stochastic-hill-climbing-genetic/blob/main/genetic_results/genetic_algorithm_unique_solutions.csv)  |
 
 #
+Fluxogramas disponíveis em pdf [aqui](https://github.com/andreyabpaiva/stochastic-hill-climbing-genetic/tree/main/fluxogramas)
+#
 Alunos: 
 `Andreya Paiva`
 `Andrey Oliveira`
