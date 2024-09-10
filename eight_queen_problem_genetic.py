@@ -1,6 +1,8 @@
 import random
 import numpy as np
 import time
+import pandas as pd
+import os
 
 # Função para converter binário em posição das rainhas
 def binary_to_queens(binary):
@@ -56,14 +58,16 @@ def genetic_algorithm():
     population_size = 20
     max_generations = 1000
     elite_size = 2
+    iterations = 0
 
     population = initialize_population(population_size)
     
     for generation in range(max_generations):
+        iterations += 1
         fitnesses = [fitness(binary_to_queens(ind)) for ind in population]
         
         if max(fitnesses) == 28:  # Solução ótima encontrada
-            return population[fitnesses.index(max(fitnesses))], generation
+            return population[fitnesses.index(max(fitnesses))], generation, iterations
 
         # Seleção dos pais
         new_population = []
@@ -81,7 +85,7 @@ def genetic_algorithm():
     # Retorna o melhor indivíduo após as gerações
     best_fitness = max(fitnesses)
     best_individual = population[fitnesses.index(best_fitness)]
-    return best_individual, max_generations
+    return best_individual, max_generations, iterations
 
 # Função para executar múltiplas execuções e mostrar soluções e métricas
 def run_multiple_executions():
@@ -89,10 +93,14 @@ def run_multiple_executions():
     solutions = []
     generations_list = []
     times = []
+    results_data = []
+    solutions_data = []
+    solutions = []
+    unique_solutions = []
     
     for i in range(num_executions):
         start_time = time.time()
-        best_individual, generations = genetic_algorithm()
+        best_individual, generations, number_of_iterations = genetic_algorithm()
         end_time = time.time()
         
         queens_solution = binary_to_queens(best_individual)
@@ -101,15 +109,36 @@ def run_multiple_executions():
         solutions.append(queens_solution)
         generations_list.append(generations)
         times.append(time_taken)
+
+        collisions = fitness(queens_solution)
+        print(collisions)
+
+        data = {
+            'Experiment': i + 1,
+            'Final State': queens_solution,
+            'Collisions': collisions,
+            'Iterations': number_of_iterations,
+            'Execution Time': time_taken
+        }
+
+        results_data.append(data)
         
-        # print(f"Tentativa {i+1}:")
-        # print(f"Solução: {queens_solution}")
-        # if generations < 1000:
-        #     print(f"Solução ótima encontrada em {generations} gerações.")
-        # else:
-        #     print("Solução ótima não encontrada. Melhor solução após 1000 gerações.")
-        # print(f"Tempo de execução: {time_taken:.4f} segundos\n")
-    
+        if collisions == 28:
+            if queens_solution not in unique_solutions:
+                unique_solutions.append(queens_solution)
+                solutions_data.append(data)
+
+    directory = 'genetic_results'
+
+    # Cria o diretório, se ele não existir
+    os.makedirs(directory, exist_ok=True)
+
+    df = pd.DataFrame(results_data)
+    df.to_csv('genetic_results/genetic_algorithm_results.csv', index=False)
+
+    df_solutions = pd.DataFrame(solutions_data)
+    df_solutions.to_csv('genetic_results/genetic_algorithm_unique_solutions.csv', index=False)
+
     return solutions, generations_list, times
 
 # Função para exibir as cinco melhores soluções distintas
