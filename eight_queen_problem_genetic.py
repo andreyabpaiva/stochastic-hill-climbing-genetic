@@ -104,11 +104,16 @@ def run_multiple_executions():
         end_time = time.time()
         
         queens_solution = binary_to_queens(best_individual)
-        time_taken = end_time - start_time
+        time_taken = round(end_time - start_time, 4)
         
         solutions.append(queens_solution)
         generations_list.append(generations)
         times.append(time_taken)
+
+        mean_iterations = np.mean(number_of_iterations)
+        std_iterations = np.std(number_of_iterations)
+        mean_time = round(np.mean(time_taken), 4)
+        std_time = round(np.std(time_taken), 4)
 
         collisions = fitness(queens_solution)
         print(collisions)
@@ -118,13 +123,17 @@ def run_multiple_executions():
             'Final State': queens_solution,
             'Collisions': collisions,
             'Iterations': number_of_iterations,
-            'Execution Time': time_taken
+            'Execution Time': time_taken,
+            'Mean Iterations': mean_iterations,
+            'Standart Deviation Iterations': std_iterations,
+            'Mean Time': mean_time,
+            'Standart Deviation Time': std_time
         }
 
         results_data.append(data)
         
         if collisions == 28:
-            if queens_solution not in unique_solutions:
+            if queens_solution not in unique_solutions and len(unique_solutions) < 5:
                 unique_solutions.append(queens_solution)
                 solutions_data.append(data)
 
