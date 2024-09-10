@@ -4,7 +4,16 @@
 1. Implementação do código em [`eight_queen_problem_hillClimbing.py`](https://github.com/andreyabpaiva/stochastic-hill-climbing-genetic/blob/main/eight_queen_problem_hillClimbing.py)
 2. Fluxograma
   ```mermaid
-
+  graph LR
+      A[INÍCIO: COM ESTADO S0] --> B[GERA UM SUCESSOR ALEATÓRIO S' A PARTIR  DE S ATUAL]
+      B --> C[s' AVALIA O VALOR DA FUNÇÃO OBJETIVO PARA S']
+      C --> D{QUAL FUNÇÃO OBJETIVO É MELHOR? S OU S'?}
+      D --> E[SUBSTITUI S POR S']
+      D -->F[MANTÉM S ATUAL]
+      E --> G{CRITÉRIO DE PARADA ATINGIDO?}
+      F --> G
+      G -->|SIM| H[FIM: RETORNA ATUAL SOLUÇÃO]
+      G --> |NÃO|B
   ```
 3. Resultado da execução e cinco melhores resultados 
    
