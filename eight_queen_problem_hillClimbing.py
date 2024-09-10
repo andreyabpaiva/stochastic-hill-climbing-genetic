@@ -1,6 +1,8 @@
 import random
 import time
 import numpy as np
+import pandas as pd
+import os
 
 
 def calculate_collisions(state: list) -> int:
@@ -40,19 +42,21 @@ def stochastic_hill_climbing(max_no_improve: int = 500) -> tuple:
 
     while no_improvement < max_no_improve:
         iterations += 1
-        best_state, min_collisions = best_move(state)
+        # Choose a random column to modify
+        col = random.randint(0, 7)
+        best_state = state[:]
+        min_collisions = current_collisions
 
-
-        # for row in range(8):
-        #     if state[col] == row: # Verify if the queen is already in this row
-        #         continue
-        #     new_state = state[:]
-        #     new_state[col] = row
-        #     new_collisions = calculate_collisions(new_state)
-        #     # print(best_state, min_collisions, new_state, new_collisions)
-        #     if new_collisions < min_collisions:
-        #         min_collisions = new_collisions
-        #         best_state = new_state
+        for row in range(8):
+            if state[col] == row: # Verify if the queen is already in this row
+                continue
+            new_state = state[:]
+            new_state[col] = row
+            new_collisions = calculate_collisions(new_state)
+            # print(best_state, min_collisions, new_state, new_collisions)
+            if new_collisions < min_collisions:
+                min_collisions = new_collisions
+                best_state = new_state
         
         if min_collisions < current_collisions: # There is a improvement
             state = best_state
@@ -63,39 +67,6 @@ def stochastic_hill_climbing(max_no_improve: int = 500) -> tuple:
         
 
     return state, current_collisions, iterations
-
-
-def best_move(state: list) -> tuple:
-    """
-    Finds the better global move that minimizes the number of colisions.
-
-    args: list: list of queen positions
-
-    returns: list: best state founded and the int: number of colisions
-    """
-    n = len(state)
-    best_state = state[:]
-    min_collisions = calculate_collisions(state)
-
-    # Itera over all the columns
-    for col in range(n):
-        
-        # Tests all the possible combinations for the queen in the current column
-        for row in range(n):
-            if state[col] == row:
-                continue
-            
-            # Creates a new state moving the queen to the line 'row'
-            new_state = state[:]
-            new_state[col] = row
-            new_collisions = calculate_collisions(new_state)
-            
-            # Se encontrar uma posição com menos colisões, atualiza o melhor estado
-            if new_collisions < min_collisions:
-                min_collisions = new_collisions
-                best_state = new_state
-    
-    return best_state, min_collisions
 
 
 def run_experiments(num_experiments: int = 50) -> tuple:
@@ -112,6 +83,8 @@ def run_experiments(num_experiments: int = 50) -> tuple:
     iterations = []
     executions_times = []
     best_solutions = []
+    results_data = []
+    best_solutions_data = []
 
     for i in range(num_experiments):
         if i % 10 == 0:
@@ -120,7 +93,9 @@ def run_experiments(num_experiments: int = 50) -> tuple:
         result, collisions, number_of_iterations = stochastic_hill_climbing()
         end_time = time.time()
 
-        executions_times.append(end_time - start_time)
+        execuion_time = end_time - start_time
+
+        executions_times.append(execuion_time)
         iterations.append(number_of_iterations)
         if collisions == 0 and result not in best_solutions:
             best_solutions.append(result)
@@ -130,6 +105,30 @@ def run_experiments(num_experiments: int = 50) -> tuple:
         mean_time = np.mean(executions_times)
         std_time = np.std(executions_times)
 
+        # Saves the data
+        data = {
+            'Experiment': i + 1,
+            'Final State': result,
+            'Collisions': collisions,
+            'Iterations': number_of_iterations,
+            'Execution Time': execuion_time
+        }
+
+        results_data.append(data)
+
+        if collisions == 0 and result not in best_solutions_data:
+            best_solutions_data.append(data)
+
+    directory = 'hill_climbing_results'
+
+    # Cria o diretório, se ele não existir
+    os.makedirs(directory, exist_ok=True)
+
+    df = pd.DataFrame(results_data)
+    df.to_csv('hill_climbing_results/stochastic_hill_climbing_results.csv', index=False)
+
+    df_solutions = pd.DataFrame(best_solutions_data)
+    df_solutions.to_csv('hill_climbing_results/stochastic_hill_climbing_unique_solutions.csv', index=False)
 
     return mean_iterations, std_iterations, mean_time, std_time, best_solutions
 
