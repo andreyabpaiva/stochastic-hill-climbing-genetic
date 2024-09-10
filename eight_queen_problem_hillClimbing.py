@@ -81,7 +81,7 @@ def run_experiments(num_experiments: int = 50) -> tuple:
     """
 
     iterations = []
-    executions_times = []
+    executions_times = [] 
     best_solutions = []
     results_data = []
     best_solutions_data = []
@@ -93,17 +93,17 @@ def run_experiments(num_experiments: int = 50) -> tuple:
         result, collisions, number_of_iterations = stochastic_hill_climbing()
         end_time = time.time()
 
-        execuion_time = end_time - start_time
+        exectution_time = round(end_time - start_time, 4)
 
-        executions_times.append(execuion_time)
+        executions_times.append(exectution_time)
         iterations.append(number_of_iterations)
         if collisions == 0 and result not in best_solutions:
             best_solutions.append(result)
 
-        mean_iterations = np.mean(iterations)
-        std_iterations = np.std(iterations)
-        mean_time = np.mean(executions_times)
-        std_time = np.std(executions_times)
+        mean_iterations = round(np.mean(iterations), 4)
+        std_iterations = round(np.std(iterations), 4)
+        mean_time = round(np.mean(executions_times), 4)
+        std_time = round(np.std(executions_times), 4)
 
         # Saves the data
         data = {
@@ -111,12 +111,16 @@ def run_experiments(num_experiments: int = 50) -> tuple:
             'Final State': result,
             'Collisions': collisions,
             'Iterations': number_of_iterations,
-            'Execution Time': execuion_time
+            'Execution Time': exectution_time,
+            'Mean Iterations': mean_iterations,
+            'Standart Deviation Iterations': std_iterations,
+            'Mean Time': mean_time,
+            'Standart Deviation Time': std_time
         }
 
         results_data.append(data)
 
-        if collisions == 0 and result not in best_solutions_data:
+        if collisions == 0 and result not in best_solutions_data and len(best_solutions_data) < 5:
             best_solutions_data.append(data)
 
     directory = 'hill_climbing_results'
